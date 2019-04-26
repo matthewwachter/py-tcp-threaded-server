@@ -4,16 +4,16 @@ Here's an example of a threaded socket server for Python 3. This server uses the
 
 Messages sent to the server should be a json dictionary that follows this format:
 
-'
+```python
 	{
 		'cmd': 'some_command_name',
 		'data': 'some_data'
 	}
-'
+```
 
 Here's an example of a script sends a test message to the server (testSend.py):
 
-'''
+```python
 	import json
 	import socket
 
@@ -33,11 +33,11 @@ Here's an example of a script sends a test message to the server (testSend.py):
 
 	# Send the message
 	sock.sendall(msg.encode('utf-8'))
-'''
+```
 
 Here's another example of a script that sends a message and waits for a response from the server (testSendReceive.py):
 
-'''
+```python
 	import json
 	import socket
 
@@ -62,4 +62,4 @@ Here's another example of a script that sends a message and waits for a response
 	res = sock.recv(1024).decode('utf-8')
 	data = json.loads(res)
 	print(data)
-'''
+```
