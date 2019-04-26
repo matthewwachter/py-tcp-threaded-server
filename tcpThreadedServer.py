@@ -87,7 +87,7 @@ class ThreadedServer(Thread):
 
 
 
-            except Exception as e:
+            except:
                 if self.debug:
                     print('CLIENT Disconnected:', client, '\n')
                 client.close()

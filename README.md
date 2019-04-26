@@ -2,6 +2,8 @@
 
 Here's an example of a threaded socket server for Python 3. This server uses the built in python threading module by creating an instance of a class (ThreadedServer) that inherits from threading.Thread. This allows the server to be run in the background.
 
+This might seem a bit overwhelming for such a simple task but this method is very rhobust, efficient, and also allows you to continue running commands after your server has started.
+
 ```python
 from datetime import datetime
 from json import loads, dumps
@@ -92,7 +94,7 @@ class ThreadedServer(Thread):
 
 
 
-            except Exception as e:
+            except:
                 if self.debug:
                     print('CLIENT Disconnected:', client, '\n')
                 client.close()
