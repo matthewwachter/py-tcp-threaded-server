@@ -73,10 +73,9 @@ class ThreadedServer(Thread):
                         pprint(data, width=1)
                         print('\n')
 
-                    #send a message back to the client
-                    cmd = data['cmd']
+                    #send a response back to the client
                     res = {
-                        'cmd': cmd,
+                        'cmd': data['cmd'],
                         'data': data['data']
                     }
  
