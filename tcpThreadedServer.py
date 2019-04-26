@@ -65,8 +65,7 @@ class ThreadedServer(Thread):
                 # try to receive data from the client
                 data = client.recv(size).decode('utf-8')
                 if data:
-                    data = loads(data[:-1])
-                    
+                    data = loads(data.rstrip('\0'))
                     if self.debug:
                         print(datetime.now())
                         print('CLIENT Data Received', client)
@@ -74,15 +73,15 @@ class ThreadedServer(Thread):
                         pprint(data, width=1)
                         print('\n')
 
-                    # send a message back to the client
-                    # cmd = data['cmd']
-                    # res = {
-                    #     'cmd': cmd,
-                    #     'success': True
-                    # }
+                    #send a message back to the client
+                    cmd = data['cmd']
+                    res = {
+                        'cmd': cmd,
+                        'data': data['data']
+                    }
  
-                    # response = dumps(res)
-                    # client.send(response.encode('utf-8'))
+                    response = dumps(res)
+                    client.send(response.encode('utf-8'))
                 else:
                     raise error('Client disconnected')
 
@@ -96,4 +95,4 @@ class ThreadedServer(Thread):
 
 
 if __name__ == "__main__":
-    ThreadedServer('127.0.0.1', 8005, timeout=86400, debug=True).start()
+    ThreadedServer('127.0.0.1', 8008, timeout=60, debug=True).start()
