@@ -89,10 +89,11 @@ class ThreadedServer(Thread):
 
             except:
                 if self.debug:
+                    print(datetime.now())
                     print('CLIENT Disconnected:', client, '\n')
                 client.close()
                 return False
 
 
 if __name__ == "__main__":
-    ThreadedServer('127.0.0.1', 8008, timeout=60, debug=True).start()
+    ThreadedServer('127.0.0.1', 8008, timeout=86400, debug=True).start()
