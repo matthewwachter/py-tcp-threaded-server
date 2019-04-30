@@ -2,7 +2,9 @@
 
 Here's an example of a threaded socket server for Python 3. This server uses the built in python threading module by creating an instance of a class (ThreadedServer) that inherits from threading.Thread. This allows the server to be run in the background.
 
-This might seem a bit overwhelming for such a simple task but this method is very robust, efficient, and also allows you to continue running commands after your server has started.
+This might seem a bit overwhelming for such a simple task but this method is very robust, efficient, and also allows you to continue running python commands after your server has started.
+
+Here's a version of the server that echos the received message back to the client that sends it (tcpThreadedServer.py).
 
 ```python
 from datetime import datetime
@@ -105,15 +107,15 @@ if __name__ == "__main__":
     ThreadedServer('127.0.0.1', 8008, timeout=86400, debug=True).start()
 ```
 
-Messages sent to the server should be a json dictionary that follows this format:
+For this particular setup, messages sent to the server should be a json dictionary that follows this format:
 
-```python
+```json
 	{
-		'cmd': 'some_command_name',
-		'data': 'some_data'
+		"cmd": "some_command_name",
+		"data": "some_data"
 	}
 ```
-Typically 'cmd' would always be a string and 'data' could be anything jsonable like a str, list, or dict.
+Typically 'cmd' would always be a string and 'data' could be anything jsonable like a str, list, or dict. This message format isn't necessary for the server to work but is provided as a foundation to build your client/server interaction from. 
 
 
 Here's an example of a script sends a test message to the server (testSend.py):
