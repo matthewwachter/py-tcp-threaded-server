@@ -1,4 +1,4 @@
-# TCP_ThreadedServer
+# python-tcp-threaded-server
 
 Here's an example of a threaded socket server for Python 3. This server uses the built in python threading module by creating an instance of a class (ThreadedServer) that inherits from threading.Thread. This allows the server to be run in the background.
 
