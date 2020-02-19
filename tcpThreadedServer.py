@@ -4,8 +4,9 @@ from pprint import pprint
 import socket
 from threading import Thread
 
+
 class ThreadedServer(Thread):
-    def __init__(self, host, port, timeout=60, debug=False):   
+    def __init__(self, host, port, timeout=60, debug=False):
         self.host = host
         self.port = port
         self.timeout = timeout
@@ -24,13 +25,13 @@ class ThreadedServer(Thread):
         # create an instance of socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        
+
         # bind the socket to its host and port
         self.sock.bind((self.host, self.port))
         if self.debug:
             print(datetime.now())
             print('SERVER Socket Bound', self.host, self.port, '\n')
-        
+
         # start listening for a client
         self.sock.listen(5)
         if self.debug:
@@ -39,17 +40,17 @@ class ThreadedServer(Thread):
         while True:
             # get the client object and address
             client, address = self.sock.accept()
-            
+
             # set a timeout
             client.settimeout(self.timeout)
-            
+
             if self.debug:
                 print(datetime.now())
                 print('CLIENT Connected:', client, '\n')
 
             # start a thread to listen to the client
-            Thread(target = self.listenToClient,args = (client,address)).start()
-            
+            Thread(target=self.listenToClient, args=(client, address)).start()
+
             # send the client a connection message
             # res = {
             #     'cmd': 'connected',
@@ -73,18 +74,16 @@ class ThreadedServer(Thread):
                         pprint(data, width=1)
                         print('\n')
 
-                    #send a response back to the client
+                    # send a response back to the client
                     res = {
                         'cmd': data['cmd'],
                         'data': data['data']
                     }
- 
+
                     response = dumps(res)
                     client.send(response.encode('utf-8'))
                 else:
                     raise error('Client disconnected')
-
-
 
             except:
                 if self.debug:
